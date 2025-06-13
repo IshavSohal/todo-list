@@ -24,43 +24,60 @@
         <div class="main">
             <h2>Todos for Project 1</h2>
             <div class="todo-item">
-                <input type="checkbox">
+                <input class="todo-toggle" type="checkbox">
                 <h3>Todo 1</h3>
                 <p>Due: 2025-06-14</p>
-                <button>Edit</button>
+                <button class="edit-todo">Edit</button>
             </div>
             <div class="todo-item">
-                <input type="checkbox">
+                <input class="todo-toggle" type="checkbox">
                 <h3>Todo 2</h3>
                 <p>Due: 2025-06-14</p>
-                <button>Edit</button>
+                <button class="edit-todo">Edit</button>
             </div>
             <div class="todo-item">
-                <input type="checkbox">
+                <input class="todo-toggle" type="checkbox">
                 <h3>Todo 3</h3>
                 <p>Due: 2025-06-14</p>
-                <button>Edit</button>
+                <button class="edit-todo">Edit</button>
             </div>
             <div class="todo-item">
-                <input type="checkbox">
+                <input class="todo-toggle" type="checkbox">
                 <h3>Todo 4</h3>
                 <p>Due: 2025-06-14</p>
-                <button>Edit</button>
+                <button class="edit-todo">Edit</button>
+            </div>
+            <div class="todo-item">
+                <input class="todo-toggle" type="checkbox">
+                <h3>Todo 4</h3>
+                <p>Due: 2025-06-14</p>
+                <button class="edit-todo">Edit</button>
+            </div>
+            <div class="todo-item">
+                <input class="todo-toggle" type="checkbox">
+                <h3>Todo 4</h3>
+                <p>Due: 2025-06-14</p>
+                <button class="edit-todo">Edit</button>
+            </div>
+            <div class="todo-item">
+                <input class="todo-toggle" type="checkbox">
+                <h3>Todo 4</h3>
+                <p>Due: 2025-06-14</p>
+                <button class="edit-todo">Edit</button>
             </div>
         </div>
-
 
         <dialog id="add-todo-modal">
             <h2>Enter Todo item's details</h2>
             <form method="dialog" action="">
                 <div class="form-input">
-                    <label for="book-title">Title</label>
+                    <label for="todo-title">Title</label>
                     <input type="text" id="todo-title" name='todo-title' required>
                     <span></span>
                 </div>
                 <div class="form-input">
                     <label for="todo-desc">Description</label>
-                    <textarea name="todo-desc" id="todo-desc"></textarea required>
+                    <textarea name="todo-desc" id="todo-desc" required></textarea>
                     <span></span>
                 </div>
                 <div class="form-input">
@@ -87,6 +104,7 @@
                 </div>
             </form>
         </dialog>
+
          <dialog id="add-project-modal">
             <h2>Enter Project's details</h2>
             <form method="dialog" action="">

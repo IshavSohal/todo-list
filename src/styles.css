@@ -117,6 +117,11 @@ tr:nth-child(odd) td {
     text-align: center;
 }
 
+.tasks > .add-todo:hover{
+    background-color:  rgb(255, 89, 0);
+}
+
+
 .projects{
     display: flex;
     flex-direction: column;
@@ -135,31 +140,16 @@ tr:nth-child(odd) td {
     text-align: left;
 }
 
-
 .projects > .add-project{
     height: 50px;
     background-color: orange;
 }
 
-/* Add todo modal styling */
-#add-todo-modal {
-    padding: 40px;
-    min-width: 225px;
-    margin-left: 40%;
-    margin-top: 1%;
+.projects > .add-project:hover{
+    background-color:  rgb(255, 89, 0);
 }
 
-#add-todo-modal h2{
-    margin-bottom: 20px;
-}
-
-#add-todo-modal input, #add-todo-modal button, #add-todo-modal textarea{
-    border-radius: 5px;
-    padding: 5px;
-    margin-top: 5px;
-    border-width: 1px;
-}
-
+/* Modal styling */
 .form-input{
     display: flex;
     flex-direction: column;
@@ -170,31 +160,41 @@ tr:nth-child(odd) td {
 }
 
 /* Add project modal styling */
-#add-project-modal {
+dialog {
     padding: 40px;
     min-width: 225px;
     margin-left: 40%;
     margin-top: 1%;
 }
 
-#add-project-modal h2{
+dialog h2{
     margin-bottom: 20px;
 }
 
-#add-project-modal input, #add-project-modal button, #add-project-modal textarea{
+dialog input, dialog button, dialog textarea{
     border-radius: 5px;
     padding: 5px;
     margin-top: 5px;
     border-width: 1px;
 }
 
+dialog button{
+    background-color: orange;
+    padding-inline: 15px;
+}
 
-/* Modal buttons */
+ 
+dialog button:hover{
+    background-color: rgb(255, 89, 0);
+}
+
+
 .buttons{
     display: flex;
     justify-content: flex-end;
     gap: 5px;
 }
+
 
 /* MAIN CONTENT STYLING */
 .main{
@@ -206,6 +206,7 @@ tr:nth-child(odd) td {
 
 .todo-item{
     display: flex;
+    align-items: center;
     gap: 10px;
     padding: 10px;
     border: 1px solid black;
@@ -214,6 +215,20 @@ tr:nth-child(odd) td {
     width: 100%;
    
 }
+
+.edit-todo{
+    margin-left: auto;
+    background-color: orange;
+    padding: 5px;
+    padding-inline: 15px;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.edit-todo:hover{
+    background-color: rgb(255, 89, 0);
+}
+
 
 .todo-item > p{
     text-wrap: wrap;

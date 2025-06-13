@@ -2,18 +2,21 @@ import { App } from "./app.js";
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
 import { projectButtons } from "./components/projectButtons.js";
+import { compareAsc, format } from "date-fns";
 
 const todoApp = new App();
-projectButtons(todoApp.projects);
+
 // todoApp.createProject("test", "this is project s1");
 // todoApp.createProject("testagain", "this is project 2");
-// const todo1 = new Todo("title", "description", new Date(), "high", "na");
-// const todo2 = new Todo("title", "description", new Date(), "high", "na");
+const todo1 = new Todo("todo 1", "description", format(new Date(), "yyyy-MM-dd"), "high", "na");
+const todo2 = new Todo("todo 2", "stuff", format(new Date(), "yyyy-MM-dd"), "high", "na");
 
 // console.log(todo1);
 // todoApp.projects[1].addTodo(todo1);
-// todoApp.projects[0].addTodo(todo2);
+todoApp.projects[0].addTodo(todo1);
+todoApp.projects[0].addTodo(todo2);
 // todoApp.projects[1].removeTodo(todo1.id);
+projectButtons(todoApp.projects);
 
 // Todos sidebar
 const addTodoButton = document.querySelector(".add-todo");
@@ -43,7 +46,6 @@ const projectSubmitButton = document.querySelector("#submit-project-modal");
 // Projects sidebar
 const addProjectButton = document.querySelector(".add-project");
 const projectSidebarButtons = document.querySelectorAll(".project-sidebar");
-const projectTItleInput = document.querySelector("#project-title");
 
 // Create event listener for Add Todo button that opens the Todo form modal. Once that form modal
 // is submitted, a new todo should be created in the specified project
@@ -68,6 +70,8 @@ todoCancelButton.addEventListener("click", () => {
 todoSubmitButton.addEventListener("click", (e) => {
     // Get data from inputs, and create a new Todo item
     const formData = Object.fromEntries(new FormData(addTodoForm));
+    console.log("form data");
+    console.log(formData);
     console.log(formData);
     if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"]) {
         todoApp.createTodo(...Object.values(formData));
@@ -110,6 +114,7 @@ projectSubmitButton.addEventListener("click", (e) => {
     if (formData["project-title"] && formData["project-desc"]) {
         todoApp.createProject(...Object.values(formData));
         projectButtons(todoApp.projects);
+        console.log(todoApp.projects);
     }
 });
 

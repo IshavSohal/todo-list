@@ -10,16 +10,15 @@ export const projectTodos = (project) => {
 
     // Create project title element
     const projectTitle = document.createElement("h2");
-    projectTitle.textContent = `Todos for ${project.title}`;
+    projectTitle.textContent = project.title;
     projectTitle.style.marginBottom = "5px";
     mainDiv.appendChild(projectTitle);
 
     // Create a div for each todo
     project.todos.forEach((todo) => {
-        const todoEditModal = todoModal(todo, project);
+        // Create a modal for editing this todo
+        const todoEditModal = todoModal({ todo, project });
         mainDiv.appendChild(todoEditModal);
-
-        // maybe we handle submit click here?
         const todoModalSubmit = todoEditModal.querySelector('button[type="submit"]');
         console.log(todoModalSubmit);
 

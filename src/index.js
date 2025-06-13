@@ -3,8 +3,10 @@ import { Todo } from "./todo.js";
 import { Project } from "./project.js";
 import { projectButtons } from "./components/projectButtons.js";
 import { compareAsc, format } from "date-fns";
+import { todoModal } from "./components/todoModal.js";
 
 const todoApp = new App();
+const appDiv = document.querySelector(".app");
 
 // todoApp.createProject("test", "this is project s1");
 // todoApp.createProject("testagain", "this is project 2");
@@ -25,15 +27,8 @@ const upcomingTodosButton = document.querySelector(".upcoming-todo");
 const pastTodoButton = document.querySelector(".past-todo");
 
 // Add todo modal
-const addTodoModal = document.querySelector("#add-todo-modal");
-const addTodoForm = document.querySelector("#add-todo-modal > form");
-const todoTitleInput = document.querySelector("#todo-title");
-const todoDescInput = document.querySelector("#todo-desc");
-const todoDateInput = document.querySelector("#todo-date");
-const todoPriorityInput = document.querySelector("#todo-priority");
-const todoNotesInput = document.querySelector("#todo-notes");
-const todoCancelButton = document.querySelector("#cancel-todo-modal");
-const todoSubmitButton = document.querySelector("#submit-todo-modal");
+let addTodoModal = todoModal({ todoApp });
+appDiv.appendChild(addTodoModal);
 
 // Add project modal
 const addProjectModal = document.querySelector("#add-project-modal");
@@ -49,33 +44,13 @@ const projectSidebarButtons = document.querySelectorAll(".project-sidebar");
 
 // Create event listener for Add Todo button that opens the Todo form modal. Once that form modal
 // is submitted, a new todo should be created in the specified project
-function clearTodoInputs() {
-    todoTitleInput.value = "";
-    todoDescInput.value = "";
-    todoDateInput.value = "";
-    todoPriorityInput.value = "";
-    todoNotesInput.value = "";
-}
-
 addTodoButton.addEventListener("click", () => {
+    console.log("add todo modal");
+    console.log(addTodoModal);
+    addTodoModal.remove();
+    addTodoModal = todoModal({ todoApp });
+    appDiv.appendChild(addTodoModal);
     addTodoModal.showModal();
-    clearTodoInputs();
-});
-
-// Create event listeners for the Todo modal buttons
-todoCancelButton.addEventListener("click", () => {
-    addTodoModal.close();
-});
-
-todoSubmitButton.addEventListener("click", (e) => {
-    // Get data from inputs, and create a new Todo item
-    const formData = Object.fromEntries(new FormData(addTodoForm));
-    console.log("form data");
-    console.log(formData);
-    console.log(formData);
-    if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"]) {
-        todoApp.createTodo(...Object.values(formData));
-    }
 });
 
 // Create event listener for the Today button. This will render in the todo items that are due

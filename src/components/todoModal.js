@@ -1,7 +1,10 @@
-export const todoModal = (todo = null, project = null, todoApp = null) => {
+export const todoModal = ({ todo, project, todoApp }) => {
+    const mainDiv = document.querySelector(".main");
     console.log("todoModal");
     console.log("todo");
     console.log(todo);
+    console.log("todoApp");
+    console.log(todoApp);
     const todoModal = document.createElement("dialog");
     todoModal.setAttribute("class", "todo-modal");
 
@@ -139,7 +142,7 @@ export const todoModal = (todo = null, project = null, todoApp = null) => {
         });
 
         todoProjectContainer.appendChild(todoProjectLabel);
-        todoProjectContainer.appendChild(todoPriorityInput);
+        todoProjectContainer.appendChild(todoProjectInput);
         todoModalForm.appendChild(todoProjectContainer);
     }
 
@@ -161,11 +164,10 @@ export const todoModal = (todo = null, project = null, todoApp = null) => {
 
     // Submit will be handled in the appropriate components
     const todoModalSubmit = document.createElement("button");
-    todoModalSubmit.textContent = "Update";
+    todoModalSubmit.textContent = todo ? "Update" : "Add";
     todoModalSubmit.setAttribute("type", "submit");
     todoModalSubmit.setAttribute("id", todo ? `todo-submit-${todo.id}` : "todo-submit");
     todoModalSubmit.addEventListener("click", () => {
-        //TODO: upon submit, we would need to rerender everything in the .main div
         const formData = Object.fromEntries(new FormData(todoModalForm));
         const formValues = Object.values(formData);
         console.log(formValues);
@@ -173,15 +175,18 @@ export const todoModal = (todo = null, project = null, todoApp = null) => {
         if (todo) {
             // Update the todo with the form data
             todo.updateTodoData(...formValues);
-            // Dispatch click event on the corresponding project todo sidebar button (very scuffed)
-            const projectSidebarButton = document.querySelector(`#project-sidebar-${project.id}`);
-            const clickEvent = new Event("click");
-            projectSidebarButton.dispatchEvent(clickEvent);
         } else if (todoApp) {
             // Get data from inputs, and create a new Todo item
             if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"]) {
                 todoApp.createTodo(...formValues);
             }
+        }
+        todoModal.close();
+        // Dispatch click event on the most recently clicked sidebar button (very scuffed)
+        if (mainDiv.dataset.buttonClicked) {
+            const sidebarButton = document.querySelector(`#${mainDiv.dataset.buttonClicked}`);
+            const clickEvent = new Event("click");
+            sidebarButton.dispatchEvent(clickEvent);
         }
     });
     todoButtonsContainer.appendChild(todoModalSubmit);

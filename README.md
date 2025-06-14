@@ -1,4 +1,4 @@
-# template-repo
+# Todo-List
 A responsive todo list app, creating using vanilla JS
 
 

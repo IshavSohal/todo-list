@@ -1,11 +1,11 @@
 import { todoModal } from "./todoModal";
 
-export const todoItem = (todo, project, parentEl) => {
+export const todoItem = (todo, project) => {
+    const mainDiv = document.querySelector(".main");
+
     // Create a modal for editing this todo
     const todoEditModal = todoModal({ todo });
-    parentEl.appendChild(todoEditModal);
-    const todoModalSubmit = todoEditModal.querySelector('button[type="submit"]');
-    console.log(todoModalSubmit);
+    mainDiv.appendChild(todoEditModal);
 
     const todoDiv = document.createElement("div");
     todoDiv.setAttribute("class", "todo-item");
@@ -35,7 +35,7 @@ export const todoItem = (todo, project, parentEl) => {
 
     // Create todo edit button
     const todoEdit = document.createElement("button");
-    todoEdit.setAttribute("class", "edit-todo");
+    todoEdit.setAttribute("class", "edit-button");
     todoEdit.textContent = "Edit";
     todoEdit.addEventListener("click", () => {
         // create a modal for editing the current todo item
@@ -44,15 +44,16 @@ export const todoItem = (todo, project, parentEl) => {
     todoButtonsContainer.appendChild(todoEdit);
 
     // Create todo delete button
+    //TODO: display modal upon pressing delete, in case user accidentaly pressed delete
     const todoDelete = document.createElement("button");
-    todoDelete.setAttribute("class", "delete-todo");
+    todoDelete.setAttribute("class", "delete-button");
     todoDelete.textContent = "Delete";
     todoDelete.addEventListener("click", () => {
         project.removeTodo(todo);
         // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
         // button (very scuffed)
-        if (parentEl.dataset.buttonClicked) {
-            const sidebarButton = document.querySelector(`#${parentEl.dataset.buttonClicked}`);
+        if (mainDiv.dataset.buttonClicked) {
+            const sidebarButton = document.querySelector(`#${mainDiv.dataset.buttonClicked}`);
             const clickEvent = new Event("click");
             sidebarButton?.dispatchEvent(clickEvent);
         }
@@ -60,5 +61,5 @@ export const todoItem = (todo, project, parentEl) => {
     todoButtonsContainer.appendChild(todoDelete);
 
     todoDiv.appendChild(todoButtonsContainer);
-    parentEl.appendChild(todoDiv);
+    mainDiv.appendChild(todoDiv);
 };

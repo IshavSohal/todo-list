@@ -2,6 +2,7 @@ import { App } from "./app.js";
 import { projectButtons } from "./components/projectButtons.js";
 import { compareAsc, format } from "date-fns";
 import { todoModal } from "./components/todoModal.js";
+import { projectModal } from "./components/projectModal.js";
 
 const todoApp = new App();
 const appDiv = document.querySelector(".app");
@@ -19,15 +20,10 @@ const pastTodoButton = document.querySelector(".past-todo");
 
 // Add todo modal
 let addTodoModal = todoModal({ todoApp });
-appDiv.appendChild(addTodoModal);
 
 // Add project modal
-const addProjectModal = document.querySelector("#add-project-modal");
-const addProjectForm = document.querySelector("#add-project-modal > form");
-const projectTitleInput = document.querySelector("#project-title");
-const projectDescInput = document.querySelector("#project-desc");
-const projectCancelButton = document.querySelector("#cancel-project-modal");
-const projectSubmitButton = document.querySelector("#submit-project-modal");
+//TODO: use project modal component
+let addProjectModal = projectModal({ todoApp });
 
 // Projects sidebar
 const addProjectButton = document.querySelector(".add-project");
@@ -58,30 +54,13 @@ addTodoButton.addEventListener("click", () => {
 
 // Create event listener for the Add Project button that opens a form modal. Once that form modal
 // is submitted, a new project should be created
-function clearProjectInputs() {
-    projectTitleInput.value = "";
-    projectDescInput.value = "";
-}
-
 addProjectButton.addEventListener("click", () => {
+    console.log("add project modal");
+    console.log(addProjectModal);
+    addProjectModal.remove();
+    addProjectModal = projectModal({ todoApp });
+    appDiv.appendChild(addProjectModal);
     addProjectModal.showModal();
-    clearProjectInputs();
-});
-
-// Create event listeners for the Project modal buttons
-projectCancelButton.addEventListener("click", () => {
-    addProjectModal.close();
-});
-
-projectSubmitButton.addEventListener("click", (e) => {
-    // Get data from inputs, and create a new Project
-    const formData = Object.fromEntries(new FormData(addProjectForm));
-    console.log(formData);
-    if (formData["project-title"] && formData["project-desc"]) {
-        todoApp.createProject(...Object.values(formData));
-        projectButtons(todoApp.projects);
-        console.log(todoApp.projects);
-    }
 });
 
 // Create event listeners for each of the Project sidebar buttons. This will render in the todos for

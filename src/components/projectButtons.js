@@ -2,7 +2,7 @@ import { projectTodos } from "./projectTodos";
 
 export const projectButtons = (projects) => {
     const mainDiv = document.querySelector(".main");
-    const projectButtonsDiv = document.querySelector(".project-buttons");
+    const projectButtonsDiv = document.querySelector(".project-sidebar-buttons");
     projectButtonsDiv.innerHTML = "";
 
     projects.forEach((project) => {

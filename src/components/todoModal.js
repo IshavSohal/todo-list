@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const todoModal = ({ todo, todoApp }) => {
     const mainDiv = document.querySelector(".main");
     console.log("todoModal");
@@ -6,7 +8,6 @@ export const todoModal = ({ todo, todoApp }) => {
     console.log("todoApp");
     console.log(todoApp);
     const todoModal = document.createElement("dialog");
-    todoModal.setAttribute("class", "todo-modal");
 
     // Create todo modal title element
     const todoModalTitle = document.createElement("h2");
@@ -30,7 +31,7 @@ export const todoModal = ({ todo, todoApp }) => {
     todoTitleInput.setAttribute("type", "text");
     todoTitleInput.setAttribute("id", todoTitleInputId);
     todoTitleInput.setAttribute("name", "todo-title");
-    todoTitleInput.setAttribute("required", "");
+    todoTitleInput.required = true;
     todoTitleInput.value = todo ? todo.title : "";
 
     todoTitleContainer.appendChild(todoTitleLabel);
@@ -48,7 +49,7 @@ export const todoModal = ({ todo, todoApp }) => {
     const todoDescInput = document.createElement("textarea");
     todoDescInput.setAttribute("id", todoDescInputId);
     todoDescInput.setAttribute("name", "todo-desc");
-    todoDescInput.setAttribute("required", "");
+    todoDescInput.required = true;
     todoDescInput.value = todo ? todo.description : "";
 
     todoDescContainer.appendChild(todoDescLabel);
@@ -67,8 +68,8 @@ export const todoModal = ({ todo, todoApp }) => {
     todoDateInput.setAttribute("type", "date");
     todoDateInput.setAttribute("id", todoDateInputId);
     todoDateInput.setAttribute("name", "todo-date");
-    todoDateInput.setAttribute("required", "");
-    todoDateInput.value = todo ? todo.dueDate : "";
+    todoDateInput.required = true;
+    todoDateInput.value = todo ? todo.dueDate : format(new Date(), "yyyy-MM-dd");
 
     todoDateContainer.appendChild(todoDateLabel);
     todoDateContainer.appendChild(todoDateInput);
@@ -85,7 +86,7 @@ export const todoModal = ({ todo, todoApp }) => {
     const todoPriorityInput = document.createElement("select");
     todoPriorityInput.setAttribute("id", todoPriorityInputId);
     todoPriorityInput.setAttribute("name", "todo-priority");
-    todoPriorityInput.setAttribute("required", "");
+    todoPriorityInput.required = true;
     const todoPriorityLow = document.createElement("option");
     todoPriorityLow.setAttribute("value", "low");
     todoPriorityLow.textContent = "Low";
@@ -98,7 +99,7 @@ export const todoModal = ({ todo, todoApp }) => {
     todoPriorityHigh.setAttribute("value", "high");
     todoPriorityHigh.textContent = "High";
     todoPriorityInput.appendChild(todoPriorityHigh);
-    todoPriorityInput.value = todo ? todo.priority : "";
+    todoPriorityInput.value = todo ? todo.priority : "low";
 
     todoPriorityContainer.appendChild(todoPriorityLabel);
     todoPriorityContainer.appendChild(todoPriorityInput);
@@ -133,7 +134,7 @@ export const todoModal = ({ todo, todoApp }) => {
         const todoProjectInput = document.createElement("select");
         todoProjectInput.setAttribute("id", todoProjectInputId);
         todoProjectInput.setAttribute("name", "todo-project");
-        todoProjectInput.setAttribute("required", "");
+        todoProjectInput.required = true;
         todoApp.projects.forEach((project) => {
             const todoProject = document.createElement("option");
             todoProject.setAttribute("value", project.id);
@@ -162,7 +163,6 @@ export const todoModal = ({ todo, todoApp }) => {
     });
     todoButtonsContainer.appendChild(todoModalCancel);
 
-    // Submit will be handled in the appropriate components
     const todoModalSubmit = document.createElement("button");
     todoModalSubmit.textContent = todo ? "Update" : "Add";
     todoModalSubmit.setAttribute("type", "submit");
@@ -181,6 +181,8 @@ export const todoModal = ({ todo, todoApp }) => {
             if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"]) {
                 todoApp.createTodo(...formValues);
                 todoModal.close();
+            } else {
+                // TODO: display error message in the modal
             }
         }
 
@@ -195,5 +197,6 @@ export const todoModal = ({ todo, todoApp }) => {
     todoButtonsContainer.appendChild(todoModalSubmit);
     todoModal.appendChild(todoButtonsContainer);
 
+    // Note: we don't append the modal to an element yet, since this can be used in the .app div or .main div
     return todoModal;
 };

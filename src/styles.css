@@ -133,13 +133,13 @@ tr:nth-child(odd) td {
     gap: 10px;
 }
 
-.project-buttons{
+.project-sidebar-buttons{
     display: flex;
     flex-direction:column;
     gap:10px;
 }
 
-.project-buttons > button{
+.project-sidebar-buttons > button{
     padding: 5px;
     text-align: left;
 }
@@ -225,8 +225,18 @@ dialog button:hover{
     margin-left: auto;
 }
 
+.project-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: right;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
 
-.edit-todo, .delete-todo{
+
+.edit-button, .delete-button{
     background-color: var(--orange);
     padding: 5px;
     padding-inline: 15px;
@@ -234,15 +244,15 @@ dialog button:hover{
     border-width: 1px;
 }
 
-.edit-todo:hover{
+.edit-button:hover{
     background-color: var(--orange-hover);
 }
 
-.delete-todo{
+.delete-button{
     background-color: var(--red);
 }
 
-.delete-todo:hover{
+.delete-button:hover{
     background-color: var(--red-hover);
 }
 

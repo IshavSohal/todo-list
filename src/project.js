@@ -21,4 +21,9 @@ export class Project {
     containsTodo(todoItem) {
         return this.todos.some((todo) => todo.id === todoItem.id);
     }
+
+    updateProjectData(title, description) {
+        this.title = title;
+        this.description = description;
+    }
 }

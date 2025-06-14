@@ -1,4 +1,5 @@
 import { todoModal } from "./todoModal";
+import { todoItem } from "./todoItem";
 
 export const projectTodos = (project) => {
     // use project object to display all of its todos
@@ -9,52 +10,22 @@ export const projectTodos = (project) => {
     mainDiv.innerHTML = "";
 
     // Create project title element
-    const projectTitle = document.createElement("h2");
+    const projectTitle = document.createElement("h1");
     projectTitle.textContent = project.title;
-    projectTitle.style.marginBottom = "5px";
+    projectTitle.style.marginBottom = "10px";
     mainDiv.appendChild(projectTitle);
+
+    // Create project description element
+    const projectDesc = document.createElement("p");
+    projectDesc.textContent = project.description;
+    mainDiv.appendChild(projectDesc);
+
+    // Create project edit button
+
+    // Create project delete button
 
     // Create a div for each todo
     project.todos.forEach((todo) => {
-        // Create a modal for editing this todo
-        const todoEditModal = todoModal({ todo, project });
-        mainDiv.appendChild(todoEditModal);
-        const todoModalSubmit = todoEditModal.querySelector('button[type="submit"]');
-        console.log(todoModalSubmit);
-
-        const todoDiv = document.createElement("div");
-        todoDiv.setAttribute("class", "todo-item");
-
-        // Create checkbox for toggling completion state
-        const todoCheckbox = document.createElement("input");
-        todoCheckbox.setAttribute("class", "todo-toggle");
-        todoCheckbox.setAttribute("type", "checkbox");
-        todoCheckbox.addEventListener("change", () => {
-            todo.setCompletedStatus(todoCheckbox.checked);
-        });
-        todoCheckbox.checked = todo.completed;
-        todoDiv.appendChild(todoCheckbox);
-
-        // Create todo title element
-        const todoTitle = document.createElement("h3");
-        todoTitle.textContent = todo.title;
-        todoDiv.appendChild(todoTitle);
-
-        // Create todo due date element
-        const todoDueDate = document.createElement("p");
-        todoDueDate.textContent = todo.dueDate;
-        todoDiv.appendChild(todoDueDate);
-
-        // Create todo edit button
-        const todoEdit = document.createElement("button");
-        todoEdit.setAttribute("class", "edit-todo");
-        todoEdit.textContent = "Edit";
-        todoEdit.addEventListener("click", () => {
-            // create a modal for editing the current todo item
-            todoEditModal.showModal();
-        });
-        todoDiv.appendChild(todoEdit);
-
-        mainDiv.appendChild(todoDiv);
+        todoItem(todo, project, mainDiv);
     });
 };

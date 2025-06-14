@@ -15,6 +15,10 @@ html {
     width: 100%;
     height: 100%;
     line-height: 1.5;
+    --orange: rgba(255, 166, 0, 0.799);
+    --orange-hover: orange;
+    --red: rgba(255, 0, 0, 0.763);
+    --red-hover: red;
 }
 
 body{
@@ -113,12 +117,12 @@ tr:nth-child(odd) td {
 
 .tasks > .add-todo{
     height: 50px;
-    background-color: orange;
+    background-color: var(--orange);
     text-align: center;
 }
 
 .tasks > .add-todo:hover{
-    background-color:  rgb(255, 89, 0);
+    background-color: var(--orange-hover);
 }
 
 
@@ -142,11 +146,11 @@ tr:nth-child(odd) td {
 
 .projects > .add-project{
     height: 50px;
-    background-color: orange;
+    background-color: var(--orange);
 }
 
 .projects > .add-project:hover{
-    background-color:  rgb(255, 89, 0);
+    background-color: var(--orange-hover)
 }
 
 /* Modal styling */
@@ -179,13 +183,13 @@ dialog input, dialog button, dialog textarea{
 }
 
 dialog button{
-    background-color: orange;
+    background-color: var(--orange);
     padding-inline: 15px;
 }
 
  
 dialog button:hover{
-    background-color: rgb(255, 89, 0);
+    background-color: var(--orange-hover);
 }
 
 
@@ -213,12 +217,17 @@ dialog button:hover{
     margin: 5px;
     text-wrap: wrap;
     width: 100%;
-   
 }
 
-.edit-todo{
+.todo-item-buttons{
+    display: flex;
+    gap: 5px;
     margin-left: auto;
-    background-color: orange;
+}
+
+
+.edit-todo, .delete-todo{
+    background-color: var(--orange);
     padding: 5px;
     padding-inline: 15px;
     border-radius: 5px;
@@ -226,7 +235,15 @@ dialog button:hover{
 }
 
 .edit-todo:hover{
-    background-color: rgb(255, 89, 0);
+    background-color: var(--orange-hover);
+}
+
+.delete-todo{
+    background-color: var(--red);
+}
+
+.delete-todo:hover{
+    background-color: var(--red-hover);
 }
 
 

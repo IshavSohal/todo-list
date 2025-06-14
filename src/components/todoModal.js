@@ -1,4 +1,4 @@
-export const todoModal = ({ todo, project, todoApp }) => {
+export const todoModal = ({ todo, todoApp }) => {
     const mainDiv = document.querySelector(".main");
     console.log("todoModal");
     console.log("todo");
@@ -175,27 +175,25 @@ export const todoModal = ({ todo, project, todoApp }) => {
         if (todo) {
             // Update the todo with the form data
             todo.updateTodoData(...formValues);
+            todoModal.close();
         } else if (todoApp) {
             // Get data from inputs, and create a new Todo item
             if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"]) {
                 todoApp.createTodo(...formValues);
+                todoModal.close();
             }
         }
-        todoModal.close();
-        // Dispatch click event on the most recently clicked sidebar button (very scuffed)
+
+        // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
+        // button (very scuffed)
         if (mainDiv.dataset.buttonClicked) {
             const sidebarButton = document.querySelector(`#${mainDiv.dataset.buttonClicked}`);
             const clickEvent = new Event("click");
-            sidebarButton.dispatchEvent(clickEvent);
+            sidebarButton?.dispatchEvent(clickEvent);
         }
     });
     todoButtonsContainer.appendChild(todoModalSubmit);
     todoModal.appendChild(todoButtonsContainer);
 
     return todoModal;
-
-    // If todoApp is not null, then this modal is being used to create a new todo
-    // In this case submitting should create a new todo object. Also we should render in
-    // a project dropdown, so that the the todo object can be added to a specific project upon
-    // creation
 };

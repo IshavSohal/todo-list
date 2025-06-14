@@ -1,5 +1,5 @@
 export class Todo {
-    constructor(title, description, dueDate, priority, notes) {
+    constructor(title, description, dueDate, priority, notes, projectId) {
         this.id = crypto.randomUUID();
         this.title = title;
         this.description = description;
@@ -7,6 +7,7 @@ export class Todo {
         this.priority = priority;
         this.notes = notes;
         this.completed = false;
+        this.projectId = projectId;
     }
 
     updateTodoData(title, description, dueDate, priority, notes) {

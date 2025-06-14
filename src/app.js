@@ -3,7 +3,9 @@ import { Project } from "./project";
 import "./styles.css";
 
 export class App {
-    projects = [new Project("Default", "This is the defaut project!")];
+    projects = [
+        new Project("Default", "This is the defaut project! Feel free to add a new one using the sidebar button"),
+    ];
 
     createProject(title, description) {
         const project = new Project(title, description);
@@ -12,7 +14,7 @@ export class App {
     }
 
     deleteProject(projectId) {
-        this.projects = this.project.filter((project) => project.id !== projectId);
+        this.projects = this.projects.filter((project) => project.id !== projectId);
     }
 
     // Should project be the project id? or the actual project? this method will be getting
@@ -21,7 +23,7 @@ export class App {
     createTodo(title, description, date, priority, notes, projectId) {
         console.log(" ");
         console.log("createTodo");
-        const todo = new Todo(title, description, date, priority, notes);
+        const todo = new Todo(title, description, date, priority, notes, projectId);
         console.log("todo created");
         console.log(todo);
         console.log("project id");
@@ -33,6 +35,10 @@ export class App {
         } else {
             this.projects[0].addTodo(todo);
         }
+    }
+
+    deleteTodo(todo, project) {
+        project.removeTodo(todo);
     }
 
     /**

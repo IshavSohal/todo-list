@@ -1,6 +1,4 @@
 import { App } from "./app.js";
-import { Todo } from "./todo.js";
-import { Project } from "./project.js";
 import { projectButtons } from "./components/projectButtons.js";
 import { compareAsc, format } from "date-fns";
 import { todoModal } from "./components/todoModal.js";
@@ -8,16 +6,9 @@ import { todoModal } from "./components/todoModal.js";
 const todoApp = new App();
 const appDiv = document.querySelector(".app");
 
-// todoApp.createProject("test", "this is project s1");
-// todoApp.createProject("testagain", "this is project 2");
-const todo1 = new Todo("todo 1", "description", format(new Date(), "yyyy-MM-dd"), "high", "na");
-const todo2 = new Todo("todo 2", "stuff", format(new Date(), "yyyy-MM-dd"), "high", "na");
+todoApp.createTodo("todo 1", "description", format(new Date(), "yyyy-MM-dd"), "high", "na", todoApp.projects[0].id);
+todoApp.createTodo("todo 2", "stuff", format(new Date(), "yyyy-MM-dd"), "high", "na", todoApp.projects[0].id);
 
-// console.log(todo1);
-// todoApp.projects[1].addTodo(todo1);
-todoApp.projects[0].addTodo(todo1);
-todoApp.projects[0].addTodo(todo2);
-// todoApp.projects[1].removeTodo(todo1.id);
 projectButtons(todoApp.projects);
 
 // Todos sidebar

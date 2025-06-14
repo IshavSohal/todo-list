@@ -29,13 +29,9 @@ export const deleteProjectModal = ({ project, todoApp }) => {
     projectModalSubmit.textContent = "Yes";
     projectModalSubmit.setAttribute("type", "submit");
     projectModalSubmit.addEventListener("click", () => {
-        console.log("test");
-        // delete this project
         todoApp.deleteProject(project.id);
-        // update the sideabr
-        projectButtons({ todoApp });
-        // switch the .main div to the default page
-        start();
+        projectButtons({ todoApp }); // update the sidebar buttons
+        start(); // switch the .main div to the default page
     });
     projectButtonsContainer.appendChild(projectModalSubmit);
     deleteProjectModal.appendChild(projectButtonsContainer);

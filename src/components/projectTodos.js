@@ -58,6 +58,6 @@ export const projectTodos = ({ project, todoApp }) => {
 
     // Create a div for each todo
     project.todos.forEach((todo) => {
-        todoItem(todo, project);
+        todoItem({ todo, project, todoApp });
     });
 };

@@ -1,11 +1,16 @@
 import { todoModal } from "./todoModal";
+import { deleteTodoModal } from "./deleteTodoModal";
 
-export const todoItem = (todo, project) => {
+export const todoItem = ({ todo, project, todoApp }) => {
     const mainDiv = document.querySelector(".main");
 
     // Create a modal for editing this todo
     const todoEditModal = todoModal({ todo });
     mainDiv.appendChild(todoEditModal);
+
+    // Create a modal for deleting this todo
+    const todoDeleteModal = deleteTodoModal({ todo, project, todoApp });
+    mainDiv.appendChild(todoDeleteModal);
 
     const todoDiv = document.createElement("div");
     todoDiv.setAttribute("class", "todo-item");
@@ -49,14 +54,15 @@ export const todoItem = (todo, project) => {
     todoDelete.setAttribute("class", "delete-button");
     todoDelete.textContent = "Delete";
     todoDelete.addEventListener("click", () => {
-        project.removeTodo(todo);
-        // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
-        // button (very scuffed)
-        if (mainDiv.dataset.buttonClicked) {
-            const sidebarButton = document.querySelector(`#${mainDiv.dataset.buttonClicked}`);
-            const clickEvent = new Event("click");
-            sidebarButton?.dispatchEvent(clickEvent);
-        }
+        todoDeleteModal.showModal();
+        // todoApp.deleteTodo(todo, project);
+        // // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
+        // // button (very scuffed)
+        // if (mainDiv.dataset.buttonClicked) {
+        //     const sidebarButton = document.querySelector(`#${mainDiv.dataset.buttonClicked}`);
+        //     const clickEvent = new Event("click");
+        //     sidebarButton?.dispatchEvent(clickEvent);
+        // }
     });
     todoButtonsContainer.appendChild(todoDelete);
 

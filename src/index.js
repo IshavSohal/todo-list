@@ -3,6 +3,7 @@ import { projectButtons } from "./components/projectButtons.js";
 import { compareAsc, format } from "date-fns";
 import { todoModal } from "./components/todoModal.js";
 import { projectModal } from "./components/projectModal.js";
+import { start } from "./components/start.js";
 
 const todoApp = new App();
 const appDiv = document.querySelector(".app");
@@ -10,7 +11,8 @@ const appDiv = document.querySelector(".app");
 todoApp.createTodo("todo 1", "description", format(new Date(), "yyyy-MM-dd"), "high", "na", todoApp.projects[0].id);
 todoApp.createTodo("todo 2", "stuff", format(new Date(), "yyyy-MM-dd"), "high", "na", todoApp.projects[0].id);
 
-projectButtons(todoApp.projects);
+projectButtons({ todoApp });
+start();
 
 // Todos sidebar
 const addTodoButton = document.querySelector(".add-todo");
@@ -27,7 +29,6 @@ let addProjectModal = projectModal({ todoApp });
 
 // Projects sidebar
 const addProjectButton = document.querySelector(".add-project");
-const projectSidebarButtons = document.querySelectorAll(".project-sidebar");
 
 // Create event listener for Add Todo button that opens the Todo form modal. Once that form modal
 // is submitted, a new todo should be created in the specified project
@@ -62,6 +63,3 @@ addProjectButton.addEventListener("click", () => {
     appDiv.appendChild(addProjectModal);
     addProjectModal.showModal();
 });
-
-// Create event listeners for each of the Project sidebar buttons. This will render in the todos for
-// that specific project

@@ -14,7 +14,7 @@ export class App {
     }
 
     deleteProject(projectId) {
-        this.projects = this.projects.filter((project) => project.id !== projectId);
+        this.projects = this.projects.filter((project) => project.id !== projectId) ?? [];
     }
 
     // Should project be the project id? or the actual project? this method will be getting

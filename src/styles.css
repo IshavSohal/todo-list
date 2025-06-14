@@ -225,6 +225,12 @@ dialog button:hover{
     margin-left: auto;
 }
 
+.todo-item > p{
+    text-wrap: wrap;
+    word-break: break-word;
+}
+
+
 .project-buttons{
     display: flex;
     flex-direction: row;
@@ -236,6 +242,7 @@ dialog button:hover{
 }
 
 
+/* Styling for edit/delete buttons */
 .edit-button, .delete-button{
     background-color: var(--orange);
     padding: 5px;
@@ -257,8 +264,9 @@ dialog button:hover{
 }
 
 
-.todo-item > p{
-    text-wrap: wrap;
-    word-break: break-word;
+/* Styling for delete modals */
+.delete-modal{
+    max-width: 350px;
 }
+
 

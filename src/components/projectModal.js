@@ -1,5 +1,7 @@
+import { projectButtons } from "./projectButtons.js";
+import { projectTodos } from "./projectTodos.js";
+
 export const projectModal = ({ project, todoApp }) => {
-    const mainDiv = document.querySelector(".main");
     const projectModal = document.createElement("dialog");
 
     // Create project modal title element
@@ -78,22 +80,22 @@ export const projectModal = ({ project, todoApp }) => {
             // Update the project with the form data
             project.updateProjectData(...formValues);
             projectModal.close();
+
+            // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
+            // button. Also rerender the project buttons in the sidebar, in case the project title changed
+            projectTodos({ project, todoApp });
+            projectButtons({ todoApp });
         } else if (todoApp) {
             // Get data from inputs, and create a new project item
             if (formData["project-title"] && formData["project-desc"]) {
-                todoApp.createproject(...formValues);
+                todoApp.createProject(...formValues);
                 projectModal.close();
+
+                // Rerender the project buttons in the sidebar
+                projectButtons({ todoApp });
             } else {
                 // TODO: display error message in the modal
             }
-        }
-
-        // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
-        // button (very scuffed)
-        if (mainDiv.dataset.buttonClicked) {
-            const sidebarButton = document.querySelector(`#${mainDiv.dataset.buttonClicked}`);
-            const clickEvent = new Event("click");
-            sidebarButton?.dispatchEvent(clickEvent);
         }
     });
     projectButtonsContainer.appendChild(projectModalSubmit);

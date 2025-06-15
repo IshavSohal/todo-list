@@ -21,13 +21,7 @@ export class App {
     // called from index.js, which doesn't have access to anything but the DOM. So, for each project
     // button, create a data field that corresponds to the project id
     createTodo(title, description, date, priority, notes, projectId) {
-        console.log(" ");
-        console.log("createTodo");
         const todo = new Todo(title, description, date, priority, notes, projectId);
-        console.log("todo created");
-        console.log(todo);
-        console.log("project id");
-        console.log(projectId);
         if (projectId) {
             // check if project exists
             const project = this.projects.find((project) => project.id === projectId);

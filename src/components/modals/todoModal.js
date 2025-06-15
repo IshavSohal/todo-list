@@ -2,17 +2,21 @@ import { format } from "date-fns";
 
 export const todoModal = ({ todo, todoApp }) => {
     const mainDiv = document.querySelector(".main");
-    console.log("todoModal");
-    console.log("todo");
-    console.log(todo);
-    console.log("todoApp");
-    console.log(todoApp);
     const todoModal = document.createElement("dialog");
 
     // Create todo modal title element
     const todoModalTitle = document.createElement("h2");
     todoModalTitle.textContent = "Enter Todo item's details";
     todoModal.appendChild(todoModalTitle);
+
+    // Create todo modal error message
+    const todoModalError = document.createElement("p");
+    todoModalError.setAttribute("class", "dialog-error");
+    todoModal.appendChild(todoModalError);
+
+    const clearErrorInput = () => {
+        todoModalError.textContent = "";
+    };
 
     // Create todo modal form
     const todoModalForm = document.createElement("form");
@@ -33,6 +37,7 @@ export const todoModal = ({ todo, todoApp }) => {
     todoTitleInput.setAttribute("name", "todo-title");
     todoTitleInput.required = true;
     todoTitleInput.value = todo ? todo.title : "";
+    todoTitleInput.addEventListener("input", clearErrorInput);
 
     todoTitleContainer.appendChild(todoTitleLabel);
     todoTitleContainer.appendChild(todoTitleInput);
@@ -51,6 +56,7 @@ export const todoModal = ({ todo, todoApp }) => {
     todoDescInput.setAttribute("name", "todo-desc");
     todoDescInput.required = true;
     todoDescInput.value = todo ? todo.description : "";
+    todoDescInput.addEventListener("input", clearErrorInput);
 
     todoDescContainer.appendChild(todoDescLabel);
     todoDescContainer.appendChild(todoDescInput);
@@ -173,16 +179,24 @@ export const todoModal = ({ todo, todoApp }) => {
         console.log(formValues);
         console.log(formData);
         if (todo) {
-            // Update the todo with the form data
-            todo.updateTodoData(...formValues);
-            todoModal.close();
-        } else if (todoApp) {
-            // Get data from inputs, and create a new Todo item
-            if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"]) {
-                todoApp.createTodo(...formValues);
+            if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"] && formData["todo-priority"]) {
+                // Update the todo with the form data
+                todo.updateTodoData(...formValues);
+                console.log("success");
                 todoModal.close();
             } else {
-                // TODO: display error message in the modal
+                console.log("ERROR");
+                todoModalError.textContent = "Do not leave any of the required fields empty!";
+            }
+        } else if (todoApp) {
+            // Get data from inputs, and create a new Todo item
+            if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"] && formData["todo-priority"]) {
+                todoApp.createTodo(...formValues);
+                todoModal.close();
+                console.log("success");
+            } else {
+                console.log("error");
+                todoModalError.textContent = "Do not leave any of the required fields empty!";
             }
         }
 

@@ -1,7 +1,5 @@
 export const deleteTodoModal = ({ todo, project, todoApp }) => {
     const mainDiv = document.querySelector(".main");
-    console.log("todoapp");
-    console.log(todoApp);
     const deleteTodoModal = document.createElement("dialog");
     deleteTodoModal.setAttribute("class", "delete-modal");
 

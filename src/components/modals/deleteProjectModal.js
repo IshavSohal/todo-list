@@ -1,9 +1,7 @@
-import { projectButtons } from "./projectButtons";
-import { start } from "./start";
+import { projectButtons } from "../projectButtons";
+import { start } from "../start";
 
 export const deleteProjectModal = ({ project, todoApp }) => {
-    console.log("todoapp");
-    console.log(todoApp);
     const deleteProjectModal = document.createElement("dialog");
     deleteProjectModal.setAttribute("class", "delete-modal");
 

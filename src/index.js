@@ -1,8 +1,8 @@
 import { App } from "./app.js";
 import { projectButtons } from "./components/projectButtons.js";
 import { compareAsc, format } from "date-fns";
-import { todoModal } from "./components/todoModal.js";
-import { projectModal } from "./components/projectModal.js";
+import { todoModal } from "./components/modals/todoModal.js";
+import { projectModal } from "./components/modals/projectModal.js";
 import { start } from "./components/start.js";
 
 const todoApp = new App();
@@ -24,7 +24,6 @@ const pastTodoButton = document.querySelector(".past-todo");
 let addTodoModal = todoModal({ todoApp });
 
 // Add project modal
-//TODO: use project modal component
 let addProjectModal = projectModal({ todoApp });
 
 // Projects sidebar
@@ -33,8 +32,6 @@ const addProjectButton = document.querySelector(".add-project");
 // Create event listener for Add Todo button that opens the Todo form modal. Once that form modal
 // is submitted, a new todo should be created in the specified project
 addTodoButton.addEventListener("click", () => {
-    console.log("add todo modal");
-    console.log(addTodoModal);
     addTodoModal.remove();
     addTodoModal = todoModal({ todoApp });
     appDiv.appendChild(addTodoModal);
@@ -56,8 +53,6 @@ addTodoButton.addEventListener("click", () => {
 // Create event listener for the Add Project button that opens a form modal. Once that form modal
 // is submitted, a new project should be created
 addProjectButton.addEventListener("click", () => {
-    console.log("add project modal");
-    console.log(addProjectModal);
     addProjectModal.remove();
     addProjectModal = projectModal({ todoApp });
     appDiv.appendChild(addProjectModal);

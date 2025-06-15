@@ -1,9 +1,6 @@
 import { projectTodos } from "./projectTodos";
 
 export const projectButtons = ({ todoApp }) => {
-    console.log(" ");
-    console.log("projectButtonsComponents");
-    console.log(todoApp);
     const mainDiv = document.querySelector(".main");
     const projectButtonsDiv = document.querySelector(".project-sidebar-buttons");
     projectButtonsDiv.innerHTML = "";

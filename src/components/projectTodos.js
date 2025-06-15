@@ -1,12 +1,8 @@
-import { projectModal } from "./projectModal";
+import { projectModal } from "./modals/projectModal";
 import { todoItem } from "./todoItem";
-import { deleteProjectModal } from "./deleteProjectModal";
+import { deleteProjectModal } from "./modals/deleteProjectModal";
 
 export const projectTodos = ({ project, todoApp }) => {
-    // use project object to display all of its todos
-    console.log(" ");
-    console.log("projectTodos component");
-    console.log(project);
     const mainDiv = document.querySelector(".main");
     mainDiv.innerHTML = "";
 
@@ -16,8 +12,6 @@ export const projectTodos = ({ project, todoApp }) => {
 
     // Create modal for deleting project
     const projectDeleteModal = deleteProjectModal({ project, todoApp });
-    console.log("delete project modal");
-    console.log(projectDeleteModal);
     mainDiv.appendChild(projectDeleteModal);
 
     // Create project edit/delete buttons

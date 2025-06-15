@@ -192,6 +192,14 @@ dialog button:hover{
     background-color: var(--orange-hover);
 }
 
+.dialog-error{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-align: center;
+    width: 350px;
+    color: red;
+}
 
 .buttons{
     display: flex;

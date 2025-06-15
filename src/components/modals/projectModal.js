@@ -1,5 +1,5 @@
-import { projectButtons } from "./projectButtons.js";
-import { projectTodos } from "./projectTodos.js";
+import { projectButtons } from "../projectButtons.js";
+import { projectTodos } from "../projectTodos.js";
 
 export const projectModal = ({ project, todoApp }) => {
     const projectModal = document.createElement("dialog");
@@ -8,6 +8,15 @@ export const projectModal = ({ project, todoApp }) => {
     const projectModalTitle = document.createElement("h2");
     projectModalTitle.textContent = "Enter Project's details";
     projectModal.appendChild(projectModalTitle);
+
+    // Create project modal error message
+    const projectModalError = document.createElement("p");
+    projectModalError.setAttribute("class", "dialog-error");
+    projectModal.appendChild(projectModalError);
+
+    const clearErrorInput = () => {
+        projectModalError.textContent = "";
+    };
 
     // Create project modal form
     const projectModalForm = document.createElement("form");
@@ -28,6 +37,7 @@ export const projectModal = ({ project, todoApp }) => {
     projectTitleInput.setAttribute("name", "project-title");
     projectTitleInput.required = true;
     projectTitleInput.value = project ? project.title : "";
+    projectTitleInput.addEventListener("input", clearErrorInput);
 
     projectTitleContainer.appendChild(projectTitleLabel);
     projectTitleContainer.appendChild(projectTitleInput);
@@ -46,6 +56,7 @@ export const projectModal = ({ project, todoApp }) => {
     projectDescInput.setAttribute("name", "project-desc");
     projectDescInput.required = true;
     projectDescInput.value = project ? project.description : "";
+    projectDescInput.addEventListener("input", clearErrorInput);
 
     projectDescContainer.appendChild(projectDescLabel);
     projectDescContainer.appendChild(projectDescInput);
@@ -77,14 +88,18 @@ export const projectModal = ({ project, todoApp }) => {
         console.log(formValues);
         console.log(formData);
         if (project) {
-            // Update the project with the form data
-            project.updateProjectData(...formValues);
-            projectModal.close();
+            if (formData["project-title"] && formData["project-desc"]) {
+                // Update the project with the form data
+                project.updateProjectData(...formValues);
+                projectModal.close();
 
-            // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
-            // button. Also rerender the project buttons in the sidebar, in case the project title changed
-            projectTodos({ project, todoApp });
-            projectButtons({ todoApp });
+                // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
+                // button. Also rerender the project buttons in the sidebar, in case the project title changed
+                projectTodos({ project, todoApp });
+                projectButtons({ todoApp });
+            } else {
+                projectModalError.textContent = "Do not leave any of the required fields empty!";
+            }
         } else if (todoApp) {
             // Get data from inputs, and create a new project item
             if (formData["project-title"] && formData["project-desc"]) {
@@ -94,7 +109,7 @@ export const projectModal = ({ project, todoApp }) => {
                 // Rerender the project buttons in the sidebar
                 projectButtons({ todoApp });
             } else {
-                // TODO: display error message in the modal
+                projectModalError.textContent = "Do not leave any of the required fields empty!";
             }
         }
     });

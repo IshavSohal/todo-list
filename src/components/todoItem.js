@@ -1,5 +1,5 @@
-import { todoModal } from "./todoModal";
-import { deleteTodoModal } from "./deleteTodoModal";
+import { todoModal } from "./modals/todoModal";
+import { deleteTodoModal } from "./modals/deleteTodoModal";
 
 export const todoItem = ({ todo, project, todoApp }) => {
     const mainDiv = document.querySelector(".main");
@@ -49,20 +49,11 @@ export const todoItem = ({ todo, project, todoApp }) => {
     todoButtonsContainer.appendChild(todoEdit);
 
     // Create todo delete button
-    //TODO: display modal upon pressing delete, in case user accidentaly pressed delete
     const todoDelete = document.createElement("button");
     todoDelete.setAttribute("class", "delete-button");
     todoDelete.textContent = "Delete";
     todoDelete.addEventListener("click", () => {
         todoDeleteModal.showModal();
-        // todoApp.deleteTodo(todo, project);
-        // // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
-        // // button (very scuffed)
-        // if (mainDiv.dataset.buttonClicked) {
-        //     const sidebarButton = document.querySelector(`#${mainDiv.dataset.buttonClicked}`);
-        //     const clickEvent = new Event("click");
-        //     sidebarButton?.dispatchEvent(clickEvent);
-        // }
     });
     todoButtonsContainer.appendChild(todoDelete);
 

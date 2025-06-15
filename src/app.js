@@ -1,20 +1,23 @@
 import { Todo } from "./todo";
 import { Project } from "./project";
-import "./styles.css";
 
 export class App {
-    projects = [
-        new Project("Default", "This is the defaut project! Feel free to add a new one using the sidebar button"),
-    ];
+    constructor() {
+        this.projects = this.getLocalStorage();
+        console.log("projects upon construction");
+        console.log(this.projects);
+        console.log(Project.prototype);
+    }
 
     createProject(title, description) {
         const project = new Project(title, description);
         this.projects.push(project);
-        console.log(this.projects);
+        this.setLocalStorage();
     }
 
     deleteProject(projectId) {
         this.projects = this.projects.filter((project) => project.id !== projectId) ?? [];
+        this.setLocalStorage();
     }
 
     // Should project be the project id? or the actual project? this method will be getting
@@ -29,10 +32,36 @@ export class App {
         } else {
             this.projects[0].addTodo(todo);
         }
+        this.setLocalStorage();
     }
 
     deleteTodo(todo, project) {
         project.removeTodo(todo);
+        this.setLocalStorage();
+    }
+
+    setLocalStorage() {
+        localStorage.setItem("projects", JSON.stringify(this.projects));
+    }
+
+    getLocalStorage() {
+        const projects = JSON.parse(localStorage.getItem("projects"));
+        if (projects) {
+            projects?.forEach((project) => {
+                Object.setPrototypeOf(project, Project.prototype);
+                project.todos.forEach((todo) => {
+                    Object.setPrototypeOf(todo, Todo.prototype);
+                });
+            });
+            return projects;
+        } else {
+            return [
+                new Project(
+                    "Default",
+                    "This is the defaut project! Feel free to add a new one using the sidebar button"
+                ),
+            ];
+        }
     }
 
     /**

@@ -163,6 +163,34 @@ tr:nth-child(odd) td {
     margin-bottom: 10px;
 }
 
+
+input[id^=todo-title] + span::after, input[id^=project-title] + span::after{
+    position: absolute;
+    content: "*";
+    top: 0px;
+    left: 33px;
+    z-index: 20;
+    color: red;
+}
+
+textarea[id^=todo-desc] + span::after, textarea[id^=project-desc] + span::after{
+    position: absolute;
+    content: "*";
+    top: 0px;
+    left: 85px;
+    z-index: 20;
+    color: red;
+}
+
+input[id^=todo-date] + span::after{
+    position: absolute;
+    content: "*";
+    top: 0px;
+    left: 70px;
+    z-index: 20;
+    color: red;
+}
+
 /* Add project modal styling */
 dialog {
     padding: 40px;

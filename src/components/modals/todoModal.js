@@ -39,8 +39,11 @@ export const todoModal = ({ todo, todoApp }) => {
     todoTitleInput.value = todo ? todo.title : "";
     todoTitleInput.addEventListener("input", clearErrorInput);
 
+    const todoTitleSpan = document.createElement("span");
+
     todoTitleContainer.appendChild(todoTitleLabel);
     todoTitleContainer.appendChild(todoTitleInput);
+    todoTitleContainer.appendChild(todoTitleSpan);
     todoModalForm.appendChild(todoTitleContainer);
 
     // Create todo modal form description input
@@ -58,8 +61,11 @@ export const todoModal = ({ todo, todoApp }) => {
     todoDescInput.value = todo ? todo.description : "";
     todoDescInput.addEventListener("input", clearErrorInput);
 
+    const todoDescSpan = document.createElement("span");
+
     todoDescContainer.appendChild(todoDescLabel);
     todoDescContainer.appendChild(todoDescInput);
+    todoDescContainer.appendChild(todoDescSpan);
     todoModalForm.appendChild(todoDescContainer);
 
     // Create todo modal form due date input
@@ -76,9 +82,13 @@ export const todoModal = ({ todo, todoApp }) => {
     todoDateInput.setAttribute("name", "todo-date");
     todoDateInput.required = true;
     todoDateInput.value = todo ? todo.dueDate : format(new Date(), "yyyy-MM-dd");
+    todoDateInput.addEventListener("input", clearErrorInput);
+
+    const todoDateSpan = document.createElement("span");
 
     todoDateContainer.appendChild(todoDateLabel);
     todoDateContainer.appendChild(todoDateInput);
+    todoDateContainer.appendChild(todoDateSpan);
     todoModalForm.appendChild(todoDateContainer);
 
     // Create todo modal form priority input

@@ -4,12 +4,10 @@ import { compareAsc, format } from "date-fns";
 import { todoModal } from "./components/modals/todoModal.js";
 import { projectModal } from "./components/modals/projectModal.js";
 import { start } from "./components/start.js";
+import "./styles.css";
 
 const todoApp = new App();
 const appDiv = document.querySelector(".app");
-
-todoApp.createTodo("todo 1", "description", format(new Date(), "yyyy-MM-dd"), "high", "na", todoApp.projects[0].id);
-todoApp.createTodo("todo 2", "stuff", format(new Date(), "yyyy-MM-dd"), "high", "na", todoApp.projects[0].id);
 
 projectButtons({ todoApp });
 start();
@@ -38,6 +36,15 @@ addTodoButton.addEventListener("click", () => {
     addTodoModal.showModal();
 });
 
+// Create event listener for the Add Project button that opens a form modal. Once that form modal
+// is submitted, a new project should be created
+addProjectButton.addEventListener("click", () => {
+    addProjectModal.remove();
+    addProjectModal = projectModal({ todoApp });
+    appDiv.appendChild(addProjectModal);
+    addProjectModal.showModal();
+});
+
 // Create event listener for the Today button. This will render in the todo items that are due
 // today
 
@@ -49,12 +56,3 @@ addTodoButton.addEventListener("click", () => {
 
 // Create event listener for the Past button. This will render in the todos whose due dates have
 // passed
-
-// Create event listener for the Add Project button that opens a form modal. Once that form modal
-// is submitted, a new project should be created
-addProjectButton.addEventListener("click", () => {
-    addProjectModal.remove();
-    addProjectModal = projectModal({ todoApp });
-    appDiv.appendChild(addProjectModal);
-    addProjectModal.showModal();
-});

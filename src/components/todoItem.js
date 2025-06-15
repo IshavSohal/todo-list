@@ -32,7 +32,7 @@ export const todoItem = ({ todo, project, todoApp }) => {
 
     // Create todo due date element
     const todoDueDate = document.createElement("p");
-    todoDueDate.textContent = todo.dueDate;
+    todoDueDate.textContent = `Due: ${todo.dueDate}`;
     todoDiv.appendChild(todoDueDate);
 
     const todoButtonsContainer = document.createElement("div");

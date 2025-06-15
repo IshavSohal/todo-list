@@ -39,8 +39,11 @@ export const projectModal = ({ project, todoApp }) => {
     projectTitleInput.value = project ? project.title : "";
     projectTitleInput.addEventListener("input", clearErrorInput);
 
+    const projectTitleSpan = document.createElement("span");
+
     projectTitleContainer.appendChild(projectTitleLabel);
     projectTitleContainer.appendChild(projectTitleInput);
+    projectTitleContainer.appendChild(projectTitleSpan);
     projectModalForm.appendChild(projectTitleContainer);
 
     // Create project modal form description input
@@ -58,8 +61,11 @@ export const projectModal = ({ project, todoApp }) => {
     projectDescInput.value = project ? project.description : "";
     projectDescInput.addEventListener("input", clearErrorInput);
 
+    const projectDescSpan = document.createElement("span");
+
     projectDescContainer.appendChild(projectDescLabel);
     projectDescContainer.appendChild(projectDescInput);
+    projectDescContainer.appendChild(projectDescSpan);
     projectModalForm.appendChild(projectDescContainer);
 
     projectModal.appendChild(projectModalForm);

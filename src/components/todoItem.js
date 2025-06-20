@@ -2,6 +2,7 @@ import { todoModal } from "./modals/todoModal";
 import { deleteTodoModal } from "./modals/deleteTodoModal";
 
 export const todoItem = ({ todo, project, todoApp }) => {
+    const mainDiv = document.querySelector(".main");
     const todoDiv = document.createElement("div");
     todoDiv.setAttribute("class", "todo-item");
 
@@ -19,6 +20,13 @@ export const todoItem = ({ todo, project, todoApp }) => {
     todoCheckbox.setAttribute("type", "checkbox");
     todoCheckbox.addEventListener("change", () => {
         todoApp.updateTodo(todo, { completed: todoCheckbox.checked });
+        // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
+        // button (very scuffed)
+        if (mainDiv.dataset.buttonClicked) {
+            const sidebarButton = document.querySelector(`#${mainDiv.dataset.buttonClicked}`);
+            const clickEvent = new Event("click");
+            sidebarButton?.dispatchEvent(clickEvent);
+        }
     });
     todoCheckbox.checked = todo.completed;
     todoDiv.appendChild(todoCheckbox);

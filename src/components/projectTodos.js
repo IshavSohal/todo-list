@@ -7,7 +7,7 @@ export const projectTodos = ({ project, todoApp }) => {
     mainDiv.innerHTML = "";
 
     // Create modal to edit project
-    const projectEditModal = projectModal({ project, todoApp });
+    const projectEditModal = projectModal({ project, todoApp, type: "edit" });
     mainDiv.appendChild(projectEditModal);
 
     // Create modal for deleting project
@@ -52,6 +52,10 @@ export const projectTodos = ({ project, todoApp }) => {
 
     // Create a div for each todo
     project.todos.forEach((todo) => {
-        todoItem({ todo, project, todoApp });
+        const todoDiv = todoItem({ todo, project, todoApp });
+        mainDiv.appendChild(todoDiv);
     });
+
+    // Create a button for adding a todo into this particular project
+    const addTodoButton = document.createElement;
 };

@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-export const todoModal = ({ todo, todoApp }) => {
+export const todoModal = ({ todo, todoApp, type }) => {
     const mainDiv = document.querySelector(".main");
     const todoModal = document.createElement("dialog");
 
@@ -81,7 +81,7 @@ export const todoModal = ({ todo, todoApp }) => {
     todoDateInput.setAttribute("id", todoDateInputId);
     todoDateInput.setAttribute("name", "todo-date");
     todoDateInput.required = true;
-    todoDateInput.value = todo ? todo.dueDate : format(new Date(), "yyyy-MM-dd");
+    todoDateInput.value = todo ? todo.dueDate.replace(/\//g, "-") : format(new Date(), "yyyy-MM-dd"); // we store dates with / delimiters, but date input requires - delimiter
     todoDateInput.addEventListener("input", clearErrorInput);
 
     const todoDateSpan = document.createElement("span");
@@ -139,7 +139,7 @@ export const todoModal = ({ todo, todoApp }) => {
     todoModalForm.appendChild(todoNotesContainer);
 
     // Create todo modal form project selection input, ONLY if this modal is for a new todo item
-    if (todoApp) {
+    if (type === "create") {
         const todoProjectContainer = document.createElement("div");
         todoProjectContainer.setAttribute("class", "form-input");
         const todoProjectInputId = todo ? `todo-project-${todo.id}` : "todo-project";
@@ -188,24 +188,26 @@ export const todoModal = ({ todo, todoApp }) => {
         const formValues = Object.values(formData);
         console.log(formValues);
         console.log(formData);
-        if (todo) {
+        if (type === "edit") {
             if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"] && formData["todo-priority"]) {
                 // Update the todo with the form data
-                todo.updateTodoData(...formValues);
-                console.log("success");
+                todoApp.updateTodo(todo, {
+                    title: formData["todo-title"],
+                    description: formData["todo-desc"],
+                    dueDate: formData["todo-date"].replace(/-/g, "/"),
+                    priority: formData["todo-priority"],
+                    notes: formData["todo-notes"],
+                });
                 todoModal.close();
             } else {
-                console.log("ERROR");
                 todoModalError.textContent = "Do not leave any of the required fields empty!";
             }
-        } else if (todoApp) {
+        } else {
             // Get data from inputs, and create a new Todo item
             if (formData["todo-title"] && formData["todo-desc"] && formData["todo-date"] && formData["todo-priority"]) {
                 todoApp.createTodo(...formValues);
                 todoModal.close();
-                console.log("success");
             } else {
-                console.log("error");
                 todoModalError.textContent = "Do not leave any of the required fields empty!";
             }
         }

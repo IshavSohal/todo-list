@@ -242,6 +242,7 @@ dialog button:hover{
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    gap: 5px;
 }
 
 .todo-item{
@@ -303,6 +304,22 @@ dialog button:hover{
 /* Styling for delete modals */
 .delete-modal{
     max-width: 350px;
+}
+
+
+/* FILTERED PROJECT TODOS STYLING */
+.project-todos{
+    margin-bottom: 10px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    width: 100%;
+}
+
+.project-subtitle{
+    border-bottom: 1px solid black;
+     padding-bottom: 5px; 
+     margin-bottom: 10px
 }
 
 

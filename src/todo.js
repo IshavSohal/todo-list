@@ -10,18 +10,13 @@ export class Todo {
         this.projectId = projectId;
     }
 
-    updateTodoData(title, description, dueDate, priority, notes) {
+    updateTodoData({ title, description, dueDate, priority, notes, completed }) {
         console.log("udpate");
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.notes = notes;
-    }
-
-    setCompletedStatus(value) {
-        console.log("set completerd tpo");
-        console.log(value);
-        this.completed = value;
+        this.title = title ?? this.title;
+        this.description = description ?? this.description;
+        this.dueDate = dueDate ?? this.dueDate;
+        this.priority = priority ?? this.priority;
+        this.notes = notes ?? this.notes;
+        this.completed = completed ?? this.completed;
     }
 }

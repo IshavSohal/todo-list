@@ -1,12 +1,12 @@
 import { Todo } from "./todo";
 import { Project } from "./project";
+import { format } from "date-fns";
 
 export class App {
     constructor() {
         this.projects = this.getLocalStorage();
-        console.log("projects upon construction");
+        console.log("projects");
         console.log(this.projects);
-        console.log(Project.prototype);
     }
 
     createProject(title, description) {
@@ -15,8 +15,17 @@ export class App {
         this.setLocalStorage();
     }
 
+    getProject(projectId) {
+        return this.projects.find((project) => project.id === projectId);
+    }
+
     deleteProject(projectId) {
         this.projects = this.projects.filter((project) => project.id !== projectId) ?? [];
+        this.setLocalStorage();
+    }
+
+    updateProject(project, title, description) {
+        project.updateProjectData(title, description);
         this.setLocalStorage();
     }
 
@@ -37,6 +46,11 @@ export class App {
 
     deleteTodo(todo, project) {
         project.removeTodo(todo);
+        this.setLocalStorage();
+    }
+
+    updateTodo(todo, { title, description, dueDate, priority, notes, completed }) {
+        todo.updateTodoData({ title, description, dueDate, priority, notes, completed });
         this.setLocalStorage();
     }
 
@@ -65,49 +79,63 @@ export class App {
     }
 
     /**
-     * List all todo items which are due within the given time range
-     */
-    timeSensitiveTodos(startDate, endDate) {
-        const todos = [];
-        const allTodos = getAllTodos();
-        allTodos.forEach((todo) => {
-            if (todo.dueDate >= startDate && todo.dueDate <= endDate) {
-                todos.append(todo);
-            }
-        });
-
-        return todos;
-    }
-
-    getTodayTodos() {
-        const today = new Date();
-        return this.timeSensitiveTodos(today, today);
-    }
-
-    /**
      * Get all todo items from all projects
      */
     getAllTodos() {
-        const allTodos = [];
+        const allTodos = {};
 
         this.projects.forEach((project) => {
-            allTodos.concat(project.todos);
+            console.log("project");
+            console.log(project);
+            allTodos[project.id] = project.todos;
         });
 
         return allTodos;
     }
 
     /**
-     * Moves an exisiting todo item from one project to another
-     *
-     * @param {currentProject} Project the project witin which the todo item resides
-     * @param {newProject} Project the project within which the todo item will be moved
-     * @param {todoItem} Todo the todo item being moved
+     * List all todo items which are due within the given time range
      */
-    moveTodo(currentProject, newProject, todoItem) {
-        if (currentProject.containsTodo(todoItem)) {
-            currentProject.removeTodo(todoItem);
-            newProject.addTodo(todoItem);
-        }
+    getTimeSensitiveTodos(startDate, endDate) {
+        const allTodos = this.getAllTodos();
+        console.log("alltodos");
+        console.log(allTodos);
+
+        Object.keys(allTodos).forEach((key) => {
+            allTodos[key] = allTodos[key].filter((todo) => {
+                const todoDate = new Date(todo.dueDate);
+                console.log(todoDate);
+                return todoDate >= startDate && todoDate <= endDate;
+            });
+        });
+
+        return allTodos;
+    }
+
+    getTodayTodos() {
+        const todayDate = new Date().setHours(0, 0, 0, 0);
+        return this.getTimeSensitiveTodos(todayDate, todayDate);
+    }
+
+    getUpcomingTodos() {
+        const todayDate = new Date().setHours(0, 0, 0, 0);
+        return this.getTimeSensitiveTodos(todayDate, Infinity);
+    }
+
+    getPastTodos() {
+        const todayDate = new Date().setHours(0, 0, 0, 0);
+        return this.getTimeSensitiveTodos(-Infinity, todayDate);
+    }
+
+    getCompletedTodos() {
+        const allTodos = this.getAllTodos();
+
+        Object.keys(allTodos).forEach((key) => {
+            allTodos[key] = allTodos[key].filter((todo) => {
+                return todo.completed;
+            });
+        });
+
+        return allTodos;
     }
 }

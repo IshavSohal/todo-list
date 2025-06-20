@@ -1,7 +1,7 @@
 import { projectButtons } from "../projectButtons.js";
 import { projectTodos } from "../projectTodos.js";
 
-export const projectModal = ({ project, todoApp }) => {
+export const projectModal = ({ project, todoApp, type }) => {
     const projectModal = document.createElement("dialog");
 
     // Create project modal title element
@@ -93,10 +93,10 @@ export const projectModal = ({ project, todoApp }) => {
         const formValues = Object.values(formData);
         console.log(formValues);
         console.log(formData);
-        if (project) {
+        if (type === "edit") {
             if (formData["project-title"] && formData["project-desc"]) {
                 // Update the project with the form data
-                project.updateProjectData(...formValues);
+                todoApp.updateProject(project, ...formValues);
                 projectModal.close();
 
                 // Rerender the contents of the main div by dispatching a click event on the most recently clicked sidebar
@@ -106,7 +106,7 @@ export const projectModal = ({ project, todoApp }) => {
             } else {
                 projectModalError.textContent = "Do not leave any of the required fields empty!";
             }
-        } else if (todoApp) {
+        } else {
             // Get data from inputs, and create a new project item
             if (formData["project-title"] && formData["project-desc"]) {
                 todoApp.createProject(...formValues);

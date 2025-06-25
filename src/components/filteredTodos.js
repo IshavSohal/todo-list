@@ -1,9 +1,6 @@
 import { todoItem } from "./todoItem";
 
 export const filteredTodos = ({ todos, todoApp, type }) => {
-    console.log(" ");
-    console.log("filteredTodos");
-    console.log(todos);
     const mainDiv = document.querySelector(".main");
     mainDiv.innerHTML = "";
 
@@ -12,7 +9,6 @@ export const filteredTodos = ({ todos, todoApp, type }) => {
     title.style.marginBottom = "20px";
     mainDiv.appendChild(title);
 
-    // for each project display its todos
     Object.entries(todos).forEach(([projectId, projectTodos]) => {
         if (projectTodos.length > 0) {
             const project = todoApp.getProject(projectId);

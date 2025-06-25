@@ -139,10 +139,19 @@ tr:nth-child(odd) td {
     gap:10px;
 }
 
-.project-sidebar-buttons > button{
+.project-sidebar-buttons > div{
+    display: flex;
+    align-items: center;
     padding: 5px;
     text-align: left;
+    background-color: #f0f0f0;
 }
+
+
+.project-sidebar-buttons > div:hover{
+    background-color: #d4d1d1;
+}
+
 
 .projects > .add-project{
     height: 50px;

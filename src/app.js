@@ -5,8 +5,6 @@ import { format } from "date-fns";
 export class App {
     constructor() {
         this.projects = this.getLocalStorage();
-        console.log("projects");
-        console.log(this.projects);
     }
 
     createProject(title, description) {
@@ -85,8 +83,6 @@ export class App {
         const allTodos = {};
 
         this.projects.forEach((project) => {
-            console.log("project");
-            console.log(project);
             allTodos[project.id] = project.todos;
         });
 
@@ -98,8 +94,6 @@ export class App {
      */
     getTimeSensitiveTodos(startDate, endDate) {
         const allTodos = this.getAllTodos();
-        console.log("alltodos");
-        console.log(allTodos);
 
         Object.keys(allTodos).forEach((key) => {
             allTodos[key] = allTodos[key].filter((todo) => {
